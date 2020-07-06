@@ -1,0 +1,29 @@
+{
+  "name": "saferpay/library",
+  "description": "Saferpay PaymentService Lib",
+  "require": {
+     "php": "^7.0.3"
+  },
+  "authors": [
+    {
+      "name": "PIT Solutions",
+      "email": "info@webshopextension.com",
+      "homepage": "https://www.webshopextension.com/",
+      "role": "Developer"
+    }
+  ],
+  "type": "magento2-library",
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Saferpay\\PaymentService\\": ""
+    }
+  },
+  "license": [
+    "afl-3.0"
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
