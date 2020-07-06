@@ -14,14 +14,13 @@
   ],
   "type": "magento2-library",
   "autoload": {
-    "files": [
-      "registration.php"
-    ],
     "psr-4": {
       "Saferpay\\PaymentService\\": ""
     }
   },
   "license": [
     "afl-3.0"
-  ]
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }
