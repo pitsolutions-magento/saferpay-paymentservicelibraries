@@ -8,7 +8,7 @@
  * or one of its  authorised resellers and provided that you comply with the conditions of this contract,
  * PIT Solutions AG and Six Payment services AG grants you a non-exclusive license,
  * unlimited in time for the usage of the software in the manner of and for the purposes specified in License.txt
- * available in extension package, according to the subsequent regulations
+ * available in extension package, according to the subsequent regulations.
  *
  * DISCLAIMER
  *
@@ -18,7 +18,8 @@
  * @category Saferpay
  * @package Saferpay_PaymentService
  * @author PIT Solutions Pvt. Ltd.
- * @copyright Copyright (c) 2020 PIT Solutions AG. (www.pitsolutions.ch) and Six Payment services AG ( https://www.six-payment-services.com/)
+ * @copyright Copyright (c) 2020 PIT Solutions AG. (www.pitsolutions.ch) and
+ * Six Payment services AG ( https://www.six-payment-services.com/)
  * @license https://www.webshopextension.com/en/licence-agreement-saferpay
  *
  */
@@ -29,10 +30,15 @@ use Saferpay\PaymentService\AliasAdapterInterface;
 use Saferpay\PaymentService\BuildContainer;
 use Saferpay\PaymentService\Constants;
 
+/**
+ * Class AliasAdapter
+ *
+ * @package Saferpay\PaymentService\Alias
+ */
 class AliasAdapter extends BuildContainer implements AliasAdapterInterface
 {
     /**
-     * Function to build Alias Insert body Data for Secure Card Data API's
+     * Function to build Alias Insert body Data for Secure Card Data API
      *
      * @param array $bodyData
      * @return array
@@ -45,7 +51,7 @@ class AliasAdapter extends BuildContainer implements AliasAdapterInterface
             'Type' => 'CARD',
             'ReturnUrls' => $this->getReturnUrlContainer($bodyData),
         ];
-        if(isset($bodyData['terminal_id'])){
+        if (isset($bodyData['terminal_id'])) {
              $insertData['Check'] = [
                         'Type' => Constants::API_ALIAS_AUTHENTICATION_ONLINE,
                         'TerminalId' => $bodyData['terminal_id']
@@ -60,12 +66,15 @@ class AliasAdapter extends BuildContainer implements AliasAdapterInterface
         } else {
             $insertData['LanguageCode'] = Constants::API_DEFAULT_LANG_CODE;
         }
+        if (isset($bodyData['saferpay_field_token'])) {
+            $insertData['PaymentMeans']['SaferpayFields']['Token'] = $bodyData['saferpay_field_token'];
+        }
 
         return $insertData;
     }
 
     /**
-     * Function to build Alias Assert body Data for Secure Card Data API's
+     * Function to build Alias Assert body Data for Secure Card Data API
      *
      * @param array $bodyData
      * @return array
@@ -79,7 +88,7 @@ class AliasAdapter extends BuildContainer implements AliasAdapterInterface
     }
 
     /**
-     * Function to build Alias Delete body Data for Secure Card Data API's
+     * Function to build Alias Delete body Data for Secure Card Data API
      *
      * @param array $bodyData
      * @return array
@@ -93,14 +102,13 @@ class AliasAdapter extends BuildContainer implements AliasAdapterInterface
     }
 
     /**
-     * Function to build Alias Update body Data for Secure Card Data API's
+     * Function to build Alias Update body Data for Secure Card Data API
      *
      * @param array $bodyData
      * @return array
      */
     public function buildAliasUpdateData($bodyData)
     {
-        //todo : check with UAT implementation
         return [
             'RequestHeader' => $this->getRequestHeaderContainer($bodyData),
             'UpdateAlias' =>
