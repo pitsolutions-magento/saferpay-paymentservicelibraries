@@ -36,7 +36,7 @@ class Constants
     /**
      * Version number of the interface specification.
      */
-    const API_SPEC_VERSION = '1.17';
+    const API_SPEC_VERSION = '1.19';
 
     /**
      * Header type

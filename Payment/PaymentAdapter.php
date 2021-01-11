@@ -95,6 +95,12 @@ class PaymentAdapter extends BuildContainer implements PaymentAdapterInterface
                 $initializeData['PaymentMethodsOptions']['Ideal']['IssuerId']= $bodyData['issuerId'];
             }
         }
+        if (isset($bodyData['order'])) {
+            $initializeData['Order']['Items'] = $bodyData['order'];
+        }
+        if (isset($bodyData['RiskFactors'])) {
+            $initializeData['RiskFactors'] = $bodyData['RiskFactors'];
+        }
 
         return $initializeData;
     }
@@ -178,6 +184,25 @@ class PaymentAdapter extends BuildContainer implements PaymentAdapterInterface
             'CaptureReference' =>
                 [
                     'CaptureId' => $bodyData['capture_reference']
+                ]
+        ];
+    }
+
+    /**
+     * Function to build Authorize Referenced API body Data
+     *
+     * @param array $bodyData
+     * @return array
+     */
+    public function buildAuthorizeReferencedBodyData($bodyData)
+    {
+        return [
+            'RequestHeader' => $this->getRequestHeaderContainer($bodyData),
+            'TerminalId' => $bodyData['terminal_id'],
+            'Payment' => $this->gePaymentContainer($bodyData),
+            'TransactionReference' =>
+                [
+                    'TransactionId' => $bodyData['transaction_id']
                 ]
         ];
     }
