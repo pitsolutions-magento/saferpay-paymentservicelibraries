@@ -67,9 +67,14 @@ class BuildContainer
      */
     public function gePaymentContainer($bodyData)
     {
+        if(isset($bodyData['order_increment_id'])){
+            $orderId = $bodyData['order_increment_id'];
+        } else {
+            $orderId = $bodyData['order_id'];
+        }
         $bodyFormData = [
             'Amount' => $this->getAmountContainer($bodyData),
-            'OrderId' => $bodyData['order_id'],
+            'OrderId' => $orderId,
             'Description' => $bodyData['description']
         ];
         if (isset($bodyData['pre_authorisation'])) {
