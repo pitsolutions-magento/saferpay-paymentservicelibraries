@@ -49,9 +49,12 @@ class PaymentAdapter extends BuildContainer implements PaymentAdapterInterface
             'RequestHeader' => $this->getRequestHeaderContainer($bodyData),
             'TerminalId' => $bodyData['terminal_id'],
             'Payment' => $this->gePaymentContainer($bodyData),
-            'Payer' => $this->getPayerContainer($bodyData),
             'ReturnUrls' => $this->getReturnUrlContainer($bodyData),
         ];
+        $payerData =$this->getPayerContainer($bodyData);
+        if (!empty($payerData)) {
+            $initializeData['Payer'] = $payerData;
+        }
         if (isset($bodyData['payment_method'])) {
             if (($bodyData['payment_method'] == Constants::SAFERPAY_MASTERPASS_WALLET) ||
                 ($bodyData['payment_method'] == Constants::SAFERPAY_APPLEPAY_WALLET)) {

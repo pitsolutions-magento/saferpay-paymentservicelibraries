@@ -123,15 +123,12 @@ class BuildContainer
     public function getPayerContainer($bodyData)
     {
         $bodyFormData = [];
-        if (isset($bodyData['lang_code'])) {
-            $bodyFormData['LanguageCode'] = $bodyData['lang_code'];
-        } else {
-            $bodyFormData['LanguageCode'] = Constants::API_DEFAULT_LANG_CODE;
-        }
         if (isset($bodyData['address']) && !empty($bodyData['address'])) {
             $bodyFormData = $bodyData['address'];
         }
-
+        if (isset($bodyData['lang_code']) && ($bodyData['lang_code'] != "")) {
+            $bodyFormData['LanguageCode'] = $bodyData['lang_code'];
+        }
         return $bodyFormData;
     }
 

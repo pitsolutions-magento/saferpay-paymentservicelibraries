@@ -61,7 +61,7 @@ class AliasAdapter extends BuildContainer implements AliasAdapterInterface
         if (!empty($styleContent)) {
             $insertData['Styling'] = $styleContent;
         }
-        if (isset($bodyData['lang_code'])) {
+        if (isset($bodyData['lang_code']) && ($bodyData['lang_code'] != "")) {
             $insertData['LanguageCode'] = $bodyData['lang_code'];
         } else {
             $insertData['LanguageCode'] = Constants::API_DEFAULT_LANG_CODE;
