@@ -36,7 +36,7 @@ class Constants
     /**
      * Version number of the interface specification.
      */
-    const API_SPEC_VERSION = '1.19';
+    const API_SPEC_VERSION = '1.23';
 
     /**
      * Header type
@@ -52,11 +52,6 @@ class Constants
      * Timeout limit
      */
     const API_TIMEOUT = 30;
-
-    /**
-     * Default shop name
-     */
-    const API_DEFAULT_SHOP_NAME = 'Magento Shop';
 
     /**
      * Default language code

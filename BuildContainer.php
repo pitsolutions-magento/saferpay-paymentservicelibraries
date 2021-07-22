@@ -41,21 +41,12 @@ class BuildContainer
      */
     public function getRequestHeaderContainer($bodyData)
     {
-        if (isset($bodyData['shop_info'])) {
-            $shopInfo = $bodyData['shop_info'];
-        } else {
-            $shopInfo = Constants::API_DEFAULT_SHOP_NAME;
-        }
-
         return [
             'SpecVersion' => Constants::API_SPEC_VERSION,
             'CustomerId' => $bodyData['saferpay_customer_id'],
             'RequestId' => $bodyData['request_id'],
             'RetryIndicator' => 0,
-            'ClientInfo' =>
-                [
-                    'ShopInfo' => $shopInfo
-                ]
+            'ClientInfo' => $bodyData['shop_info']
         ];
     }
 
