@@ -97,6 +97,11 @@ class PaymentAdapter extends BuildContainer implements PaymentAdapterInterface
             if (isset($bodyData['issuerId']) && !empty($bodyData['issuerId'])) {
                 $initializeData['PaymentMethodsOptions']['Ideal']['IssuerId']= $bodyData['issuerId'];
             }
+            if (isset($bodyData['Attachment']) && !empty($bodyData['Attachment'])) {
+                $initializeData['PaymentMethodsOptions']['Klarna']['Attachment']= $bodyData['Attachment'];
+            }
+        } else {
+            $initializeData['RedirectNotifyUrls'] = $this->getRedirectNotifyContainer($bodyData);
         }
         if (isset($bodyData['order'])) {
             $initializeData['Order']['Items'] = $bodyData['order'];

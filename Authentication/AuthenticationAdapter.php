@@ -28,14 +28,33 @@ namespace Saferpay\PaymentService\Authentication;
 
 use Saferpay\PaymentService\AuthenticationAdapterInterface;
 use Saferpay\PaymentService\Constants;
-use Zend\Http\Client;
-use Zend\Http\Request;
-use Zend\Http\Headers;
+use Zend\Http\Client as zendClient;
+use Zend\Http\Request as zendRequest;
+use Zend\Http\Headers as zendHeaders;
+use Zend\Http\Client\Adapter\Curl as zendCurl;
+use Laminas\Http\Client as LaminasClient;
+use Laminas\Http\Request as LaminasRequest;
+use Laminas\Http\Headers as LaminasHeaders;
+use Laminas\Http\Client\Adapter\Curl as LaminasCurl;
+use Saferpay\PaymentService\Authentication\Client;
+use Saferpay\PaymentService\Authentication\Request;
+use Saferpay\PaymentService\Authentication\Headers;
+use Saferpay\PaymentService\Authentication\Curl;
+
+function get_dynamic_class($class, $aliasClass)
+{
+    if (class_exists($class)) {
+        return $class;
+    }
+    return $aliasClass;
+}
+class_alias(get_dynamic_class(LaminasClient::class, zendClient::class), Client::class);
+class_alias(get_dynamic_class(LaminasRequest::class, zendRequest::class), Request::class);
+class_alias(get_dynamic_class(LaminasHeaders::class, zendHeaders::class), Headers::class);
+class_alias(get_dynamic_class(LaminasCurl::class, zendCurl::class), Curl::class);
 
 /**
- * Class AuthenticationAdapter
- *
- * @package Saferpay\PaymentService\Authentication
+ * Authentication Adapter class
  */
 class AuthenticationAdapter implements AuthenticationAdapterInterface
 {
@@ -74,7 +93,7 @@ class AuthenticationAdapter implements AuthenticationAdapterInterface
         $httpRequest->setMethod(Request::METHOD_POST);
         $client = new Client();
         $options = [
-            'adapter' => 'Zend\Http\Client\Adapter\Curl',
+            'adapter' => Curl::class,
             'curloptions' => [CURLOPT_FOLLOWLOCATION => true],
             'maxredirects' => 0,
             'timeout' => Constants::API_TIMEOUT
@@ -88,4 +107,22 @@ class AuthenticationAdapter implements AuthenticationAdapterInterface
 
         return $result;
     }
+
+    /**
+     * Function to generate Authorization header Data for Saferpay API
+     *
+     * @param $requestId
+     * @return array
+     */
+    public function generateHttpHeader($requestId)
+    {
+        return [
+            'Accept' => Constants::API_ACCEPT_HEADER_TYPE,
+            'Content-Type' => Constants::API_ACCEPT_HEADER_TYPE,
+            'charset' => Constants::API_CHARSET,
+            'Saferpay-ApiVersion' => Constants::API_SPEC_VERSION,
+            'Saferpay-RequestId' => $requestId
+        ];
+    }
+
 }

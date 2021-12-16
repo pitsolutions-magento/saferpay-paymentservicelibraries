@@ -120,6 +120,10 @@ class BuildContainer
         if (isset($bodyData['lang_code']) && ($bodyData['lang_code'] != "")) {
             $bodyFormData['LanguageCode'] = $bodyData['lang_code'];
         }
+        if (isset($bodyData['ip_address']) && ($bodyData['ip_address'] != "")) {
+            $bodyFormData['IpAddress'] = $bodyData['ip_address'];
+        }
+
         return $bodyFormData;
     }
 
@@ -132,7 +136,8 @@ class BuildContainer
     public function getNotificationContainer($bodyData)
     {
         $bodyFormData = [];
-        $bodyFormData['NotifyUrl'] = $bodyData['notify_url'];
+        $bodyFormData['SuccessNotifyUrl'] = $bodyData['success_notify_url'];
+        $bodyFormData['FailNotifyUrl'] = $bodyData['fail_notify_url'];
         if (isset($bodyData['merchant_email']) && !empty($bodyData['merchant_email'])) {
             $bodyFormData['MerchantEmails'] = [$bodyData['merchant_email']];
         }
@@ -140,6 +145,21 @@ class BuildContainer
             isset($bodyData['customer_email'])) {
             $bodyFormData['PayerEmail'] = $bodyData['customer_email'];
         }
+
+        return $bodyFormData;
+    }
+
+    /**
+     * Function to get Redirect Notification url Container for API
+     *
+     * @param array $bodyData
+     * @return array
+     */
+    public function getRedirectNotifyContainer($bodyData)
+    {
+        $bodyFormData = [];
+        $bodyFormData['Success'] = $bodyData['tp_success_notify_url'];
+        $bodyFormData['Fail'] = $bodyData['tp_fail_notify_url'];
 
         return $bodyFormData;
     }
