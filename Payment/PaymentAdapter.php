@@ -214,4 +214,26 @@ class PaymentAdapter extends BuildContainer implements PaymentAdapterInterface
                 ]
         ];
     }
+
+    /**
+     * Serialize data into string
+     *
+     * @param string|int|float|bool|array|null $data
+     * @return string|bool
+     */
+    public function serializeData($data)
+    {
+        return serialize($data);
+    }
+
+    /**
+     * Unserialize the given string
+     *
+     * @param string $data
+     * @return string|int|float|bool|array|null
+     */
+    public function unserializeData($data)
+    {
+        return unserialize($data);
+    }
 }
