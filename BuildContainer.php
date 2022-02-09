@@ -120,7 +120,7 @@ class BuildContainer
         if (isset($bodyData['lang_code']) && ($bodyData['lang_code'] != "")) {
             $bodyFormData['LanguageCode'] = $bodyData['lang_code'];
         }
-        if (isset($bodyData['ip_address']) && ($bodyData['ip_address'] != "")) {
+        if (isset($bodyData['ip_address']) && ($bodyData['ip_address'] != "") && filter_var($bodyData['ip_address'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
             $bodyFormData['IpAddress'] = $bodyData['ip_address'];
         }
 
@@ -229,8 +229,8 @@ class BuildContainer
             !empty($bodyData['identifier'])) {
             return [
                 'NotifyUrl' => $bodyData['pending_url'] . '?process=' .
-                               $process . '&referenceId=' .
-                               $bodyData['identifier']
+                    $process . '&referenceId=' .
+                    $bodyData['identifier']
             ];
         }
     }
