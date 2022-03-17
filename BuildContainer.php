@@ -229,8 +229,8 @@ class BuildContainer
             !empty($bodyData['identifier'])) {
             return [
                 'NotifyUrl' => $bodyData['pending_url'] . '?process=' .
-                    $process . '&referenceId=' .
-                    $bodyData['identifier']
+                               $process . '&referenceId=' .
+                               $bodyData['identifier']
             ];
         }
     }

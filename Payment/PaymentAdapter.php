@@ -103,7 +103,7 @@ class PaymentAdapter extends BuildContainer implements PaymentAdapterInterface
         } else {
             $initializeData['RedirectNotifyUrls'] = $this->getRedirectNotifyContainer($bodyData);
         }
-        if (isset($bodyData['order'])) {
+        if (isset($bodyData['order']) && !empty($bodyData['order'])) {
             $initializeData['Order']['Items'] = $bodyData['order'];
         }
         if (isset($bodyData['RiskFactors'])) {
