@@ -1,9 +1,6 @@
 {
   "name": "saferpay/library",
   "description": "Saferpay PaymentService Lib",
-  "require": {
-     "php": "^7.0.3"
-  },
   "authors": [
     {
       "name": "PIT Solutions",
