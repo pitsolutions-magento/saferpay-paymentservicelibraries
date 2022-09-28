@@ -57,13 +57,14 @@ class PaymentAdapter extends BuildContainer implements PaymentAdapterInterface
         }
         if (isset($bodyData['payment_method'])) {
             if (($bodyData['payment_method'] == Constants::SAFERPAY_MASTERPASS_WALLET) ||
-                ($bodyData['payment_method'] == Constants::SAFERPAY_APPLEPAY_WALLET)) {
+                ($bodyData['payment_method'] == Constants::SAFERPAY_APPLEPAY_WALLET) ||
+                ($bodyData['payment_method'] == Constants::SAFERPAY_GOOGLEPAY_WALLET)) {
                 $initializeData['Wallets'] = [$bodyData['payment_method']];
             } else {
                 $initializeData['PaymentMethods'] = [$bodyData['payment_method']];
             }
         }
-        if (isset($bodyData['payment_brands'])) {
+        if (isset($bodyData['payment_brands']) && !empty($bodyData['payment_brands'])) {
             $initializeData['PaymentMethods'] = $bodyData['payment_brands'];
         }
         if (isset($bodyData['aliasId']) && !empty($bodyData['aliasId'])) {
@@ -97,9 +98,9 @@ class PaymentAdapter extends BuildContainer implements PaymentAdapterInterface
             if (isset($bodyData['issuerId']) && !empty($bodyData['issuerId'])) {
                 $initializeData['PaymentMethodsOptions']['Ideal']['IssuerId']= $bodyData['issuerId'];
             }
-            if (isset($bodyData['Attachment']) && !empty($bodyData['Attachment'])) {
-                $initializeData['PaymentMethodsOptions']['Klarna']['Attachment']= $bodyData['Attachment'];
-            }
+//            if (isset($bodyData['Attachment']) && !empty($bodyData['Attachment'])) {
+//                $initializeData['PaymentMethodsOptions']['Klarna']['Attachment']= $bodyData['Attachment'];
+//            }
         } else {
             $initializeData['RedirectNotifyUrls'] = $this->getRedirectNotifyContainer($bodyData);
         }
@@ -235,5 +236,29 @@ class PaymentAdapter extends BuildContainer implements PaymentAdapterInterface
     public function unserializeData($data)
     {
         return unserialize($data);
+    }
+
+    /**
+     * Function to build AuthorizeDirect API body Data
+     *
+     * @param array $bodyData
+     * @return array
+     */
+    public function buildAuthorizeDirectBodyData($bodyData)
+    {
+        $authorizeDirectData = [
+            'RequestHeader' => $this->getRequestHeaderContainer($bodyData),
+            'TerminalId' => $bodyData['terminal_id'],
+            'Payment' => $this->gePaymentContainer($bodyData)
+        ];
+        $payerData =$this->getPayerContainer($bodyData);
+        if (!empty($payerData)) {
+            $authorizeDirectData['Payer'] = $payerData;
+        }
+        if (isset($bodyData['aliasId']) && !empty($bodyData['aliasId'])) {
+            $authorizeDirectData['PaymentMeans']['Alias']['Id'] = $bodyData['aliasId'];
+        }
+
+        return $authorizeDirectData;
     }
 }

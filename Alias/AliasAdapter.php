@@ -48,15 +48,10 @@ class AliasAdapter extends BuildContainer implements AliasAdapterInterface
         $insertData = [
             'RequestHeader' => $this->getRequestHeaderContainer($bodyData),
             'RegisterAlias' => $this->getRegisterAlias(),
-            'Type' => 'CARD',
+            'Type' => $bodyData['type'],
             'ReturnUrls' => $this->getReturnUrlContainer($bodyData),
         ];
-        if (isset($bodyData['terminal_id'])) {
-             $insertData['Check'] = [
-                        'Type' => Constants::API_ALIAS_AUTHENTICATION_ONLINE,
-                        'TerminalId' => $bodyData['terminal_id']
-                        ];
-        }
+
         $styleContent = $this->getStylingContainer($bodyData);
         if (!empty($styleContent)) {
             $insertData['Styling'] = $styleContent;
@@ -66,8 +61,14 @@ class AliasAdapter extends BuildContainer implements AliasAdapterInterface
         } else {
             $insertData['LanguageCode'] = Constants::API_DEFAULT_LANG_CODE;
         }
-        if (isset($bodyData['saferpay_field_token'])) {
+        if (isset($bodyData['saferpay_field_token']) && !empty($bodyData['saferpay_field_token'])) {
             $insertData['PaymentMeans']['SaferpayFields']['Token'] = $bodyData['saferpay_field_token'];
+            if (isset($bodyData['terminal_id'])) {
+                $insertData['Check'] = [
+                    'Type' => Constants::API_ALIAS_AUTHENTICATION_ONLINE,
+                    'TerminalId' => $bodyData['terminal_id']
+                ];
+            }
         }
 
         return $insertData;

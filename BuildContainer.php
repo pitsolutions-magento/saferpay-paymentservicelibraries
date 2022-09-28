@@ -68,6 +68,9 @@ class BuildContainer
             'OrderId' => $orderId,
             'Description' => $bodyData['description']
         ];
+        if (isset($bodyData['restrict_refund_amt'])) {
+            $bodyFormData['RestrictRefundAmountToCapturedAmount'] = true;
+        }
         if (isset($bodyData['pre_authorisation'])) {
             $preAuth = ($bodyData['pre_authorisation'] == 1) ? true : false;
             $bodyFormData['Options'] = [

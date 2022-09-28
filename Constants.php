@@ -18,7 +18,7 @@
  * @category Saferpay
  * @package Saferpay_PaymentService
  * @author PIT Solutions Pvt. Ltd.
- * @copyright Copyright (c) 2020 PIT Solutions AG. (www.pitsolutions.ch) and
+ * @copyright Copyright (c) 2022 PIT Solutions AG. (www.pitsolutions.ch) and
  * Six Payment services AG ( https://www.six-payment-services.com/)
  * @license https://www.webshopextension.com/en/licence-agreement-saferpay
  *
@@ -36,7 +36,7 @@ class Constants
     /**
      * Version number of the interface specification.
      */
-    const API_SPEC_VERSION = '1.24';
+    const API_SPEC_VERSION = '1.28';
 
     /**
      * Header type
@@ -122,4 +122,9 @@ class Constants
      * Request Verification Code
      */
     const REQUEST_VERIFICATION_CODE_MANDATORY = 'MANDATORY';
+
+    /**
+     * Googlepay wallet
+     */
+    const SAFERPAY_GOOGLEPAY_WALLET = 'GOOGLEPAY';
 }

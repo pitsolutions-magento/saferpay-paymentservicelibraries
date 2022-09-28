@@ -18,7 +18,7 @@
  * @category Saferpay
  * @package Saferpay_PaymentService
  * @author PIT Solutions Pvt. Ltd.
- * @copyright Copyright (c) 2020 PIT Solutions AG. (www.pitsolutions.ch) and
+ * @copyright Copyright (c) 2022 PIT Solutions AG. (www.pitsolutions.ch) and
  * Six Payment services AG ( https://www.six-payment-services.com/)
  * @license https://www.webshopextension.com/en/licence-agreement-saferpay
  *
@@ -123,6 +123,40 @@ class AuthenticationAdapter implements AuthenticationAdapterInterface
             'Saferpay-ApiVersion' => Constants::API_SPEC_VERSION,
             'Saferpay-RequestId' => $requestId
         ];
+    }
+
+    /**
+     * Function to send Get Request to SaferPAy Management API
+     *
+     * @param array $headerData
+     * @param string $url
+     * @param string $username
+     * @param string $password
+     * @return array
+     */
+    public function sendGetRequest($headerData, $url, $username, $password)
+    {
+        $result = [];
+        $httpHeaders = new Headers();
+        $httpHeaders->addHeaders($headerData);
+        $httpRequest = new Request();
+        $httpRequest->setHeaders($httpHeaders);
+        $httpRequest->setUri($url);
+        $httpRequest->setMethod(Request::METHOD_GET);
+        $client = new Client();
+        $options = [
+            'adapter' => Curl::class,
+            'curloptions' => [CURLOPT_FOLLOWLOCATION => true],
+            'maxredirects' => 0,
+            'timeout' => Constants::API_TIMEOUT
+        ];
+        $client->setOptions($options);
+        $client->setAuth($username, $password, Client::AUTH_BASIC);
+        $response = $client->send($httpRequest);
+        $result['status'] = $response->getStatusCode();
+        $result['data'] = json_decode($response->getBody(), true);
+
+        return $result;
     }
 
 }
