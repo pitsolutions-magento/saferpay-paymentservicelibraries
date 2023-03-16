@@ -112,15 +112,16 @@ class AuthenticationAdapter implements AuthenticationAdapterInterface
      * Function to generate Authorization header Data for Saferpay API
      *
      * @param $requestId
+     * @param $apiVersion
      * @return array
      */
-    public function generateHttpHeader($requestId)
+    public function generateHttpHeader($requestId,$apiVersion)
     {
         return [
             'Accept' => Constants::API_ACCEPT_HEADER_TYPE,
             'Content-Type' => Constants::API_ACCEPT_HEADER_TYPE,
             'charset' => Constants::API_CHARSET,
-            'Saferpay-ApiVersion' => Constants::API_SPEC_VERSION,
+            'Saferpay-ApiVersion' => $apiVersion,
             'Saferpay-RequestId' => $requestId
         ];
     }

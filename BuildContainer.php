@@ -42,7 +42,7 @@ class BuildContainer
     public function getRequestHeaderContainer($bodyData)
     {
         return [
-            'SpecVersion' => Constants::API_SPEC_VERSION,
+            'SpecVersion' => $bodyData['api_spec_version'],
             'CustomerId' => $bodyData['saferpay_customer_id'],
             'RequestId' => $bodyData['request_id'],
             'RetryIndicator' => 0,

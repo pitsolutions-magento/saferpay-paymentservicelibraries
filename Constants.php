@@ -34,11 +34,6 @@ namespace Saferpay\PaymentService;
 class Constants
 {
     /**
-     * Version number of the interface specification.
-     */
-    const API_SPEC_VERSION = '1.30';
-
-    /**
      * Header type
      */
     const API_ACCEPT_HEADER_TYPE = 'application/json';
