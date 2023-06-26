@@ -18,7 +18,7 @@
  * @category Saferpay
  * @package Saferpay_PaymentService
  * @author PIT Solutions Pvt. Ltd.
- * @copyright Copyright (c) 2020 PIT Solutions AG. (www.pitsolutions.ch) and
+ * @copyright Copyright (c) PIT Solutions AG. (www.pitsolutions.ch) and
  * Six Payment services AG ( https://www.six-payment-services.com/)
  * @license https://www.webshopextension.com/en/licence-agreement-saferpay
  *

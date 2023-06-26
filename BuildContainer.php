@@ -18,7 +18,7 @@
  * @category Saferpay
  * @package Saferpay_PaymentService
  * @author PIT Solutions Pvt. Ltd.
- * @copyright Copyright (c) 2020 PIT Solutions AG. (www.pitsolutions.ch) and
+ * @copyright Copyright (c) PIT Solutions AG. (www.pitsolutions.ch) and
  * Six Payment services AG ( https://www.six-payment-services.com/)
  * @license https://www.webshopextension.com/en/licence-agreement-saferpay
  *
@@ -176,9 +176,20 @@ class BuildContainer
     public function getReturnUrlContainer($bodyData)
     {
         return [
-            'Success' => $bodyData['success_url'],
-            'Fail' => $bodyData['fail_url'],
-            'Abort' => $bodyData['abort_url']
+            'url' => $bodyData['return_url']
+        ];
+    }
+
+    /**
+     * Function to get NotificationUrl Container for API
+     *
+     * @param array $bodyData
+     * @return array
+     */
+    public function getNotificationUrlContainer($bodyData)
+    {
+        return [
+            'NotifyUrl' => $bodyData['notify_url']
         ];
     }
 

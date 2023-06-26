@@ -18,7 +18,7 @@
  * @category Saferpay
  * @package Saferpay_PaymentService
  * @author PIT Solutions Pvt. Ltd.
- * @copyright Copyright (c) 2020 PIT Solutions AG. (www.pitsolutions.ch) and
+ * @copyright Copyright (c) PIT Solutions AG. (www.pitsolutions.ch) and
  * Six Payment services AG ( https://www.six-payment-services.com/)
  * @license https://www.webshopextension.com/en/licence-agreement-saferpay
  *
@@ -49,7 +49,7 @@ class PaymentAdapter extends BuildContainer implements PaymentAdapterInterface
             'RequestHeader' => $this->getRequestHeaderContainer($bodyData),
             'TerminalId' => $bodyData['terminal_id'],
             'Payment' => $this->gePaymentContainer($bodyData),
-            'ReturnUrls' => $this->getReturnUrlContainer($bodyData),
+            'ReturnUrl' => $this->getReturnUrlContainer($bodyData),
         ];
         $payerData =$this->getPayerContainer($bodyData);
         if (!empty($payerData)) {
