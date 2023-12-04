@@ -147,6 +147,8 @@ class BuildContainer
         if (isset($bodyData['send_email']) && $bodyData['send_email'] == Constants::ACTIVE &&
             isset($bodyData['customer_email'])) {
             $bodyFormData['PayerEmail'] = $bodyData['customer_email'];
+        } elseif(isset($bodyData['customer_email'])) {
+            $bodyFormData['PayerDccReceiptEmail'] = $bodyData['customer_email'];
         }
 
         return $bodyFormData;
